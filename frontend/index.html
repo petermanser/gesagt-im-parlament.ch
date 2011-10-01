@@ -79,60 +79,62 @@
   </div> <!-- #container -->
   
   <script>
-    
-    // create / load item map
-    var tagClouds = {
-          "HeinzKunz": {"Homer":3, "Maggie":5, "Bart": 3, "Flenders":2, "Lisa": 6}
-      };
-    
-    // get all selectable options
-    var $optionSets = $('#options .option-set'),
-        $optionLinks = $optionSets.find('a');
-
-    // set the click action on all the options
-    $optionLinks.click(function(){
-        var $this = $(this);
-        // don't proceed if already selected
-        if ( $this.hasClass('selected') ) {
-          return false;
-        }
-        var $optionSet = $this.parents('.option-set');
-        $optionSet.find('.selected').removeClass('selected');
-        $this.addClass('selected');
-  
-        // make option object dynamically, i.e. { filter: '.my-filter-class' }
-        var options = {},
-            key = $optionSet.attr('data-option-key'),
-            value = $this.attr('data-option-value');
-        // parse 'false' as false boolean
-        value = value === 'false' ? false : value;
-        options[ key ] = value;
-        if ( key === 'politician' ) {
-          // changes in layout modes need extra logic
-          console.log("new politician: " + value)
-        } else {
-          // otherwise, apply new options
-          $container.isotope( options );
-        }
-        
-        return false;
-    });
-    
     $(function(){
       var $container = $('#container');
-    
       $container.isotope({
-        itemSelector: '.element'
+          itemSelector: '.element'
       });
 
-      
+      // create / load item map
+      var tagClouds = {
+          "HeinzKunz": {"Homer":3, "Maggie":5, "Bart": 3, "Flenders":2, "Lisa": 6},
+          "KarlHinz": {"Hinz":3, "Kunz":5, "Flux": 3, "Poff":2, "Bäh": 6}
+      };
 
       // add cloud of heinzkunz as default content
       var tags = tagClouds["HeinzKunz"]
       for (var tag in tags) {
-        addTag($container, tag, tags[tag])
+          addTag($container, tag, tags[tag])
       }
-      
+
+      // get all selectable options
+      var $optionSets = $('#options .option-set'),
+          $optionLinks = $optionSets.find('a');
+
+      // set the click action on all the options
+      $optionLinks.click(function(){
+          var $this = $(this);
+          // don't proceed if already selected
+          if ( $this.hasClass('selected') ) {
+            return false;
+          }
+
+          // select new option, deselect old option
+          var $optionSet = $this.parents('.option-set');
+          $optionSet.find('.selected').removeClass('selected');
+          $this.addClass('selected');
+
+          // make option object dynamically, i.e. { filter: '.my-filter-class' }
+          var options = {},
+              key = $optionSet.attr('data-option-key'),
+              value = $this.attr('data-option-value');
+          // parse 'false' as false boolean
+          value = value === 'false' ? false : value;
+          options[ key ] = value;
+          if ( key === 'politician' ) {
+            // changes in layout modes need extra logic
+            removeAllTags($container);
+            var tags = tagClouds[value]; // get tags for politician
+            for (var tag in tags) {
+                addTag($container, tag, tags[tag])
+            }
+          } else {
+            // otherwise, apply new options
+            $container.isotope( options );
+          }
+
+          return false;
+      });
     });
   </script>
     

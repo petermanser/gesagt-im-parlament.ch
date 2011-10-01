@@ -11,7 +11,10 @@ function addTag($isotope_container, tag, weight) {
  }
  
 function removeAllTags($isotope_container) {
-    // tagSet = $($isotope_container ' .element');
-    //         console.log(tagSet)
+    tagSet = $isotope_container.find('.element');
+    for (i=0; i<tagSet.length; i++) {
+        var $tag = $(tagSet[i]);
+        $isotope_container.isotope( 'remove', $tag )   
+    }
     
 }
