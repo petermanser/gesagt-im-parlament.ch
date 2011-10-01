@@ -120,6 +120,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
+    # Contrib apps
+    'django_extensions',
+
     # Own apps
     'apps.front',
 )

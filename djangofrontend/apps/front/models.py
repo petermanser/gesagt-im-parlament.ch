@@ -20,6 +20,9 @@ class Affair(models.Model):
     submission_date = models.DateField()
     content = models.TextField(blank=True)
 
+    def __unicode__(self):
+        return '[%s] %s' % (self.id, self.title)
+
     class Meta:
         get_latest_by = 'submission_date'
 
