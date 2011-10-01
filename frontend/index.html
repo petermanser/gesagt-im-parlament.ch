@@ -47,7 +47,7 @@
 				+'" class="option-set clearfix" data-option-key="politician"></ul></div>';
 		});
 		$("#accordion").html(a);
-		
+		doPoliticians();
 	})
   
   	function sortAbbreviation(a,b){  
@@ -56,32 +56,34 @@
 	function sortFaction(a,b){  
 		return a.faction > b.faction ? 1 : -1;  
 	};  
-  
-	$.getJSON("../data/councillors.json",function(councillors)
-	{
-		councillors.sort(sortFaction);
-	 	a="";
-	 	faction='';
-		i=0;
-		$.each(councillors, function(key, value)
-		{ 
-			i++;
-			name = value.faction+" "+ value.firstName+' '+value.lastName;
-			id= value.firstName+'_'+value.lastName;
-			val = value.firstName+value.lastName;
-			//a='<li><a href="#'+id+'" data-option-value="'+val+'">'+name+'</a>';
-			a='<li>'+name+'</li>';
-			//a=name;
-			faction=(value.faction==='-'?'NONE':value.faction);
-			$("#politiker"+faction).html( $("#politiker"+faction).html()+a );
-			//a+='<li>'+name+'</li>';
-		});
-		//$("#politiker_"+value.faction).html();
-		//alert (a);
-		//id":1353,"updated":"2011-05-02T15:20:28Z","firstName":"Giuseppe","lastName":"a Marca","active":false,"code":null,"officialDenomination":null},{"id":1354,"updated":"2011-05-02T15:20:38Z","firstName":"Alois","lastName":"Ab Yberg","active":false,"code":null,"officialDenomination":null}
-		// $(this).addClass("done");
-  })
-  jQuery('#accordion').accordion(); 
+	function doPoliticians(){
+			$.getJSON("../data/councillors.json",function(councillors)
+			{
+				councillors.sort(sortFaction);
+				a="";
+				faction='';
+				i=0;
+				$.each(councillors, function(key, value)
+				{ 
+					i++;
+					name = value.faction+" "+ value.firstName+' '+value.lastName;
+					id= value.firstName+'_'+value.lastName;
+					val = value.firstName+value.lastName;
+					a='<li><a href="#'+id+'" data-option-value="'+val+'">'+name+'</a>';
+					//a='<li>'+name+'</li>';
+					//a=name;
+					faction=(value.faction==='-'?'NONE':value.faction);
+					$("#politiker"+faction).html( $("#politiker"+faction).html()+a );
+					//a+='<li>'+name+'</li>';
+				});
+				//$("#politiker_"+value.faction).html();
+				//alert (a);
+				//id":1353,"updated":"2011-05-02T15:20:28Z","firstName":"Giuseppe","lastName":"a Marca","active":false,"code":null,"officialDenomination":null},{"id":1354,"updated":"2011-05-02T15:20:38Z","firstName":"Alois","lastName":"Ab Yberg","active":false,"code":null,"officialDenomination":null}
+				// $(this).addClass("done");
+		  })
+		  //jQuery('#accordion').accordion(); 
+	}
+
   /*
   
                 <li><a href="#Heinz_Kunz" data-option-value="HeinzKunz">Heinz Kunz</a>
