@@ -1,0 +1,8 @@
+Failed to parse affair 10.3053 (time data 'Birrer-Heimo Prisca' does not match format '%d.%m.%Y')
+Failed to parse affair 10.3162 (time data 'Ingold Maja' does not match format '%d.%m.%Y')
+Failed to parse affair 10.3193 (time data 'Jans Beat' does not match format '%d.%m.%Y')
+Failed to parse affair 10.3268 (time data 'Gross AndreasSozialdemokratische Fraktion' does not match format '%d.%m.%Y')
+Failed to parse affair 10.3409 (time data 'Streiff-Feller Marianne' does not match format '%d.%m.%Y')
+Failed to parse affair 10.3411 (time data 'Ingold MajaFraktion CVP/EVP/glp' does not match format '%d.%m.%Y')
+Failed to parse affair 10.3412 ('ascii' codec can't encode character u'\xfc' in position 4: ordinal not in range(128))
+Failed to parse affair 10.3413 ('ascii' codec can't encode character u'\xfc' in position 4: ordinal not in range(128))
