@@ -18,25 +18,25 @@
 <body>
   
     <nav id="site-nav">
-        <h1><a href="../index.html">Isotope</a></h1>
         
         <section id="options" class="clearfix">
         <h2>Politiker</h2>
-<script>
-  /*$.ajax({
-  url: "data.json",
-  dataType: 'json',
-  data: data,
-  success: function(data){
-	alert(data);
-   // $(this).addClass("done");
-  }*/
+
+        <script>
+          /*$.ajax({
+          url: "data.json",
+          dataType: 'json',
+          data: data,
+          success: function(data){
+        	alert(data);
+           // $(this).addClass("done");
+          }*/
   
-  $.getJSON("http://localhost/data.json",function(data){
-	alert(data[0].firstName);
-   // $(this).addClass("done");
-  })
-</script>        
+          $.getJSON("http://localhost/data.json",function(data){
+        	alert(data[0].firstName);
+           // $(this).addClass("done");
+          })
+        </script>        
         
         
         <ul id="politiker" class="option-set clearfix" data-option-key="politician">
@@ -49,6 +49,49 @@
               <li><a href="../docs/sorting.html">Sorting</a>
               <li><a href="../docs/animating.html">Animating</a>
               <li><a href="../docs/adding-items.html">Adding items</a>
+                  <li><a href="../docs/methods.html">Methods</a>
+                  <li><a href="../docs/layout-modes.html">Layout modes</a>
+                  <li><a href="../docs/filtering.html">Filtering</a>
+                  <li><a href="../docs/sorting.html">Sorting</a>
+                  <li><a href="../docs/animating.html">Animating</a>
+                  <li><a href="../docs/adding-items.html">Adding items</a>
+                      <li><a href="../docs/methods.html">Methods</a>
+                      <li><a href="../docs/layout-modes.html">Layout modes</a>
+                      <li><a href="../docs/filtering.html">Filtering</a>
+                      <li><a href="../docs/sorting.html">Sorting</a>
+                      <li><a href="../docs/animating.html">Animating</a>
+                      <li><a href="../docs/adding-items.html">Adding items</a>
+                          <li><a href="../docs/methods.html">Methods</a>
+                          <li><a href="../docs/layout-modes.html">Layout modes</a>
+                          <li><a href="../docs/filtering.html">Filtering</a>
+                          <li><a href="../docs/sorting.html">Sorting</a>
+                          <li><a href="../docs/animating.html">Animating</a>
+                          <li><a href="../docs/adding-items.html">Adding items</a>
+                              <li><a href="../docs/methods.html">Methods</a>
+                              <li><a href="../docs/layout-modes.html">Layout modes</a>
+                              <li><a href="../docs/filtering.html">Filtering</a>
+                              <li><a href="../docs/sorting.html">Sorting</a>
+                              <li><a href="../docs/animating.html">Animating</a>
+                              <li><a href="../docs/adding-items.html">Adding items</a>
+                                  <li><a href="../docs/methods.html">Methods</a>
+                                  <li><a href="../docs/layout-modes.html">Layout modes</a>
+                                  <li><a href="../docs/filtering.html">Filtering</a>
+                                  <li><a href="../docs/sorting.html">Sorting</a>
+                                  <li><a href="../docs/animating.html">Animating</a>
+                                  <li><a href="../docs/adding-items.html">Adding items</a>
+                                      <li><a href="../docs/methods.html">Methods</a>
+                                      <li><a href="../docs/layout-modes.html">Layout modes</a>
+                                      <li><a href="../docs/filtering.html">Filtering</a>
+                                      <li><a href="../docs/sorting.html">Sorting</a>
+                                      <li><a href="../docs/animating.html">Animating</a>
+                                      <li><a href="../docs/adding-items.html">Adding items</a>
+                                          <li><a href="../docs/methods.html">Methods</a>
+                                          <li><a href="../docs/layout-modes.html">Layout modes</a>
+                                          <li><a href="../docs/filtering.html">Filtering</a>
+                                          <li><a href="../docs/sorting.html">Sorting</a>
+                                          <li><a href="../docs/animating.html">Animating</a>
+                                          <li><a href="../docs/adding-items.html">Adding items</a>
+              
               <li><a href="../docs/extending-isotope.html">Extending Isotope</a>
               <li><a href="../docs/help.html">Help</a>
               <li><a href="../docs/license.html">License</a>
@@ -70,15 +113,12 @@
         
         // create / load item map
         var tagClouds = {
-            "HeinzKunz": {"Homer":3, "Maggie":5, "Bart": 3, "Flenders":2, "Lisa": 6},
-            "KarlHinz": {"Hinz":3, "Kunz":5, "Flux": 3, "Poff":2, "Bäh": 6}
+              "HeinzKunz": {"Miau":1, "Homer":1, "Maggie":5, "Bart": 3, "Flenders":2, "Lisa": 6, "W00T":3, "Boff":6, "Raff":2, "Zack":4, "Wuff":3},
+              "KarlHinz": {"Hinz":3, "Kunz":5, "Flux": 3, "Poff":2, "Bäh": 6}
         };
         
         // add cloud of heinzkunz as default content
-        var tags = tagClouds["HeinzKunz"]
-        for (var tag in tags) {
-            addTag($container, tag, tags[tag])
-        }
+        addTagMap($container, tagClouds["HeinzKunz"])
     
         // get all selectable options
         var $optionSets = $('#options .option-set'),
@@ -107,10 +147,7 @@
             if ( key === 'politician' ) {
               // changes in layout modes need extra logic
               removeAllTags($container);
-              var tags = tagClouds[value]; // get tags for politician
-              for (var tag in tags) {
-                  addTag($container, tag, tags[tag])
-              }
+              addTagMap($container, tagClouds[value]); // add tags for politician
             } else {
               // otherwise, apply new options
               $container.isotope( options );
