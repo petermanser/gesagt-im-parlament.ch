@@ -998,8 +998,23 @@ stopwords = set([
     u'übrigens',
 
     # own values
+    u'bund',
+    u'bundes',
     u'bundesrat',
     u'bundesrates',
     u'schweiz',
     u'schweizer',
+    u'franken',
+    u'insbesondere',
+    u'prozent',
+    u'motion',
+    u'massnahmen',
+    u'beantragt',
+    u'parlament',
+    u'personen',
+    u'artikel',
+    u'a',
+    u'b',
+    u'z',
+    u'bern',
 ])
