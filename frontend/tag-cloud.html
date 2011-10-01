@@ -8,6 +8,9 @@
   <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
   <link rel="stylesheet" href="css/style.css" />
+  <script src="js/jquery-1.6.4.js"></script>
+  <script src="js/jquery.isotope-1.4.1.js"></script>
+  <script src="js/tag-cloud.js"></script>
   
   <!-- scripts at bottom of page -->
 
@@ -19,6 +22,23 @@
         
         <section id="options" class="clearfix">
         <h2>Politiker</h2>
+<script>
+  /*$.ajax({
+  url: "data.json",
+  dataType: 'json',
+  data: data,
+  success: function(data){
+	alert(data);
+   // $(this).addClass("done");
+  }*/
+  
+  $.getJSON("http://localhost/data.json",function(data){
+	alert(data[0].firstName);
+   // $(this).addClass("done");
+  })
+</script>        
+        
+        
         <ul id="politiker" class="option-set clearfix" data-option-key="politician">
               <li><a href="#Heinz_Kunz" data-option-value="HeinzKunz">Heinz Kunz</a>
               <li><a href="../docs/options.html">Options</a>
@@ -57,9 +77,6 @@
     
   </div> <!-- #container -->
   
-  <script src="js/jquery-1.6.4.js"></script>
-  <script src="js/jquery.isotope-1.4.1.js"></script>
-  <script src="js/tag-cloud.js"></script>
   <script>
     
     // create / load item map
