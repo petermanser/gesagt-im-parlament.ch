@@ -38,24 +38,7 @@
   
   <section id="content">
   
-  <div id="container">
-   
-   <div class="element other nonmetal   " data-symbol="H" data-category="other">
-      <p class="number">1</p>
-      <h3 class="symbol">H</h3>
-      <h2 class="name">Hydrogen</h2>
-      <p class="weight">1.00794</p>
-    </div>
-    
-          
-    <div class="element noble-gas nonmetal   " data-symbol="He" data-category="noble-gas">
-      <p class="number">2</p>
-      <h3 class="symbol">He</h3>
-      <h2 class="name">Helium</h2>
-      <p class="weight">4.002602</p>
-    </div>
-    
-  </div> <!-- #container -->
+  <div id="container" />
   
   <script src="js/jquery-1.6.4.js"></script>
   <script src="js/jquery.isotope-1.4.1.js"></script>
@@ -78,6 +61,8 @@
         if ( $this.hasClass('selected') ) {
           return false;
         }
+        
+        // select new option, deselect old option
         var $optionSet = $this.parents('.option-set');
         $optionSet.find('.selected').removeClass('selected');
         $this.addClass('selected');
