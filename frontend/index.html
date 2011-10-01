@@ -9,8 +9,12 @@
   
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/jquery-1.6.4.js"></script>
+  <script src="js/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="js/jquery.isotope-1.4.1.js"></script>
   <script src="js/tag-cloud.js"></script>
+	<!--script type="text/javascript" src="js/jquery.easing.js"></script>
+	<script type="text/javascript" src="js/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="js/jquery.accordion.js"></scrip--t
   
   <!-- scripts at bottom of page -->
 
@@ -22,26 +26,65 @@
         
         <section id="options" class="clearfix">
         <h2>Politiker</h2>
+        <div id="accordion"></div>        
+
+
 <script>
-  /*$.ajax({
-  url: "data.json",
-  dataType: 'json',
-  data: data,
-  success: function(data){
-	alert(data);
-   // $(this).addClass("done");
-  }*/
   
-  $.getJSON("../data/councillors.json",function(data){
-	alert(data[0].firstName);
-	//id":1353,"updated":"2011-05-02T15:20:28Z","firstName":"Giuseppe","lastName":"a Marca","active":false,"code":null,"officialDenomination":null},{"id":1354,"updated":"2011-05-02T15:20:38Z","firstName":"Alois","lastName":"Ab Yberg","active":false,"code":null,"officialDenomination":null}
-   // $(this).addClass("done");
+	$.getJSON("../data/Factions.json",function(factions)
+	{
+	 	a="";
+		i=0;
+		factions.sort(sortAbbreviation);
+		$.each(factions, function(key, value)
+		{ 
+			i++;
+			faction=(value.abbreviation==='-'?'NONE':value.abbreviation);
+			a+='<br><a href="#faction'+faction+'" style="font-size:14px;">'
+				+value.name
+				+'</a><div><ul id="politiker'
+				+faction
+				+'" class="option-set clearfix" data-option-key="politician"></ul></div>';
+		});
+		$("#accordion").html(a);
+		
+	})
+  
+  	function sortAbbreviation(a,b){  
+		return a.abbreviation > b.abbreviation ? 1 : -1;  
+	};  
+	function sortFaction(a,b){  
+		return a.faction > b.faction ? 1 : -1;  
+	};  
+  
+	$.getJSON("../data/councillors.json",function(councillors)
+	{
+		councillors.sort(sortFaction);
+	 	a="";
+	 	faction='';
+		i=0;
+		$.each(councillors, function(key, value)
+		{ 
+			i++;
+			name = value.faction+" "+ value.firstName+' '+value.lastName;
+			id= value.firstName+'_'+value.lastName;
+			val = value.firstName+value.lastName;
+			//a='<li><a href="#'+id+'" data-option-value="'+val+'">'+name+'</a>';
+			a='<li>'+name+'</li>';
+			//a=name;
+			faction=(value.faction==='-'?'NONE':value.faction);
+			$("#politiker"+faction).html( $("#politiker"+faction).html()+a );
+			//a+='<li>'+name+'</li>';
+		});
+		//$("#politiker_"+value.faction).html();
+		//alert (a);
+		//id":1353,"updated":"2011-05-02T15:20:28Z","firstName":"Giuseppe","lastName":"a Marca","active":false,"code":null,"officialDenomination":null},{"id":1354,"updated":"2011-05-02T15:20:38Z","firstName":"Alois","lastName":"Ab Yberg","active":false,"code":null,"officialDenomination":null}
+		// $(this).addClass("done");
   })
-</script>        
-        
-        
-        <ul id="politiker" class="option-set clearfix" data-option-key="politician">
-              <li><a href="#Heinz_Kunz" data-option-value="HeinzKunz">Heinz Kunz</a>
+  jQuery('#accordion').accordion(); 
+  /*
+  
+                <li><a href="#Heinz_Kunz" data-option-value="HeinzKunz">Heinz Kunz</a>
               <li><a href="../docs/options.html">Options</a>
               <li><a href="../docs/methods.html">Methods</a>
               <li><a href="../docs/layout-modes.html">Layout modes</a>
@@ -52,7 +95,10 @@
               <li><a href="../docs/extending-isotope.html">Extending Isotope</a>
               <li><a href="../docs/help.html">Help</a>
               <li><a href="../docs/license.html">License</a>
-        </ul>
+
+  */
+</script>        
+      
         </section> <!-- options -->
         
       </nav> <!-- #site-nav -->
