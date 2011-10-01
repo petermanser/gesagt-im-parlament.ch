@@ -12,7 +12,16 @@ class ParlSpider(BaseSpider):
     allowed_domains = ["www.parlament.ch"]
     base_url = "http://www.parlament.ch" 
     start_urls = [
-        "http://www.parlament.ch/ab/toc/d/n/4820/d_n_4820.htm"
+        # NR 2011
+        "http://www.parlament.ch/ab/toc/d/n/4820/d_n_4820.htm", # Autumn 11
+        "http://www.parlament.ch/ab/toc/d/n/4819/d_n_4819.htm", # Summer 11
+        "http://www.parlament.ch/ab/toc/d/n/4818/d_n_4818.htm", # April (special) 11
+        "http://www.parlament.ch/ab/toc/d/n/4817/d_n_4817.htm", # Spring 11
+        # SR 2011
+        "http://www.parlament.ch/ab/toc/d/s/4820/d_s_4820.htm", # Autum 11
+        "http://www.parlament.ch/ab/toc/d/s/4819/d_s_4819.htm", # Summer 11
+        "http://www.parlament.ch/ab/toc/d/s/4817/d_s_4817.htm", # Spring 11
+
     ]
 
     def parse(self, response):
