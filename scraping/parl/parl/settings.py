@@ -14,3 +14,6 @@ NEWSPIDER_MODULE = 'parl.spiders'
 DEFAULT_ITEM_CLASS = 'parl.items.Subject'
 USER_AGENT = '%s/%s' % (BOT_NAME, BOT_VERSION)
 
+ITEM_PIPELINES = [
+    'parl.pipelines.CSVWriter',   
+]
