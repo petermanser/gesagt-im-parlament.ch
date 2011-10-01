@@ -59,7 +59,7 @@ class ParlSpider(BaseSpider):
                     if speakerDesc:
                         try:
                             name, group, canton = matchSpeakerInfo.match(speakerDesc).groups()
-                            speaker = items.Speaker(subjectId=currentSubject['id'], name=name, group=group, canton=canton, detailPage=tr.select(".//a[@id='SpeachTitleLink']/@href").extract()[0])
+                            speaker = items.Speaker(subjectTitle=currentSubject['title'], subjectId=currentSubject['id'], name=name, group=group, canton=canton, detailPage=tr.select(".//a[@id='SpeachTitleLink']/@href").extract()[0])
                             speakers.append(speaker)
                         except AttributeError:
                             print "No matched speaker for", speakerDesc
