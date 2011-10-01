@@ -32,6 +32,7 @@ class ParlSpider(BaseSpider):
         #subjects = hxs.select("//a[@id='SubjectTitleLink']/*/span/text()").extract()
         matchSpeakerInfo = re.compile("^([^(]*) \(([^,]*), (.*)\)$")
         subjects = []
+        speakers = []
         currentSubject = False
         for tr in hxs.select("//tr"):
             id = tr.select('@id').extract()
@@ -47,13 +48,13 @@ class ParlSpider(BaseSpider):
                     speakerDesc = tr.select(".//a[@id='SpeachTitleLink']//span/text()").extract()
                     speakerDesc = speakerDesc[0]
                     if speakerDesc:
+                        try:
+                            name, group, canton = matchSpeakerInfo.match(speakerDesc).groups()
+                            speaker = items.Speaker(subjectId=currentSubject['id'], name=name, group=group, canton=canton, detailPage=tr.select(".//a[@id='SpeachTitleLink']/@href").extract()[0])
+                            speakers.append(speaker)
+                        except AttributeError:
+                            print "No matched speaker for", speakerDesc
 
-                        name, group, canton = matchSpeakerInfo.match(speakerDesc).groups()
-
-                        speaker = items.Speaker(name=name, group=group, canton=canton, detailPage=tr.select(".//a[@id='SpeachTitleLink']/@href").extract()[0])
-                        # @TODO Cannot access speakers like this, find different solution
-                        #currentSubject.speakers.append(speaker)
-                        print "Speaker", speaker
         if currentSubject:
             subjects.append(currentSubject)
-        print subjects
+        return speakers
