@@ -84,3 +84,7 @@ h1 {
     font-size: 4em;
     line-height: 1em;
 }
+
+.row div.person {
+    height: 180px;
+}

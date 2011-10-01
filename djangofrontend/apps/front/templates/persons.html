@@ -5,8 +5,8 @@
     <h1>Parlamentarier</h1>
     <div class="row">
         {% for person in persons %}
-            <div class="person span4">
-                <a href="{% url 'tagcloud' person.id %}"><img src="/static/portraits/{{ person.id }}.jpg" alt="Portrait" /></a>
+            <div class="person span3">
+                <a href="{% url 'tagcloud' person.id %}"><img src="/static/portraits/{{ person.id }}.jpg" alt="" /></a><br>
                 <a href="{% url 'tagcloud' person.id %}">{{ person.name }}</a>
             </div>
         {% endfor %}

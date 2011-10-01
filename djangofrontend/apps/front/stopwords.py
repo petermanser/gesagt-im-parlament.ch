@@ -1011,10 +1011,13 @@ stopwords = set([
     u'massnahmen',
     u'beantragt',
     u'parlament',
+    u'parlamentarischen',
     u'personen',
     u'artikel',
     u'a',
     u'b',
     u'z',
     u'bern',
+    u'vorstösse',
+    u'ii',
 ])
