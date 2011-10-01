@@ -6,7 +6,9 @@ Der Zweck des Projekt ist es, politische Vorstösse von Parlamentariern zu samme
 und die am häufigsten verwendeten Stichworte in einer [Tag Cloud](http://de.wikipedia.org/wiki/Schlagwortwolke)
 zu visualisieren.
 
-Siehe auch [Screenshot](http://ich-wars-nicht.ch/tmp/screenshots/20111002_003135.png)
+Screenshot:
+
+![Screenshot](https://raw.github.com/gwrtheyrn/Parlament/master/screenshot.png)
 
 Technologie, Aufbau
 -------------------
