@@ -40,7 +40,7 @@ class ParlSpider(BaseSpider):
         hxs = HtmlXPathSelector(response)
         #subjects = hxs.select("//a[@id='SubjectTitleLink']/*/span/text()").extract()
         matchSpeakerInfo = re.compile("^([^(]*) \(([^,]*), (.*)\)$")
-        subjects = []
+        subjects = {}
         speakers = []
         currentSubject = False
         for tr in hxs.select("//tr"):
@@ -49,8 +49,8 @@ class ParlSpider(BaseSpider):
                 if id[0] == "SubjectTitleLine":
                     subjectParts = tr.select(".//span/text()").extract()
                     if currentSubject:
-                        subjects.append(currentSubject)
-                    currentSubject = items.Subject(id=subjectParts[0], title= " ".join(subjectParts[1:]), speakers=[])
+                        subjects[currentSubject['id']] = currentSubject
+                    currentSubject = items.Subject(id=subjectParts[0], title= " ".join(subjectParts[1:]))
                     
                 elif id[0] == "SpeachTitleLine":
 
@@ -65,5 +65,5 @@ class ParlSpider(BaseSpider):
                             print "No matched speaker for", speakerDesc
 
         if currentSubject:
-            subjects.append(currentSubject)
-        return speakers
+            subjects[currentSubject['id']] = currentSubject
+        return speakers + subjects.values()
