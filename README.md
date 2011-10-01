@@ -1,8 +1,33 @@
-# Parlament
+Parlamentarier-Buzzwords
+========================
 
-## Instructions to fetch the images from the parliament website
-1. create directory: admin/images/
-2. php admin/fetch_images.php
-3. the images are saved in the directory
+Dieses Projekt ist im Rahmen des [Make Open Data Camp 2011](http://makeopendata.ch/) entstanden.
+Der Zweck des Projekt ist es, politische Vorstösse von Parlamentariern zu sammeln, zu analysieren,
+und die am häufigsten verwendeten Stichworte in einer [Tag Cloud](http://de.wikipedia.org/wiki/Schlagwortwolke)
+zu visualisieren.
 
-> convert $file -resize 160x240^ -gravity center -extent 160x240 -quality 95 $file
+Siehe auch [Screenshot](http://ich-wars-nicht.ch/tmp/screenshots/20111002_003135.png)
+
+Technologie, Aufbau
+-------------------
+
+Der Ablauf ist folgendermassen:
+
+  1. Die Daten werden von verschiedenen Quellen geparsed. Momentan wird nur parlament.ch
+     berücksichtigt. Die Daten werden mit einem Scala-Script geparsed und dann in ein JSON File
+     gespeichert.
+  2. Dieses JSON File wird vom Frontend einmalig geparsed und in die Datenbank geschrieben. Das
+     Frontend ist in Python / Django geschrieben. Das Parse Script wurde als ./manage.py-Script
+     realisiert.
+  3. Die Aggregation und Sortierung / Zählung dieser Daten wird momentan on-the-fly durchgeführt.
+
+Requirements
+------------
+
+  * Für das Scraping: Scala
+  * Für das Frontend: Python, Django
+
+Lizenz
+------
+
+This code is - unless noted otherwise - distributed under a BSD like license.
