@@ -14,6 +14,7 @@ class Subject(Item):
 
 class Speaker(Item):
     subjectId = Field()
+    subjectTitle = Field()
     name = Field()
     group = Field()
     canton = Field()
