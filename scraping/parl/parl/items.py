@@ -13,6 +13,7 @@ class Subject(Item):
     speakers = Field()
 
 class Speaker(Item):
+    subjectId = Field()
     name = Field()
     group = Field()
     canton = Field()

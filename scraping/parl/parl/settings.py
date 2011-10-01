@@ -6,7 +6,7 @@
 #     http://doc.scrapy.org/topics/settings.html
 #
 
-BOT_NAME = 'parl'
+BOT_NAME = 'MakeOpenDataCH'
 BOT_VERSION = '1.0'
 
 SPIDER_MODULES = ['parl.spiders']

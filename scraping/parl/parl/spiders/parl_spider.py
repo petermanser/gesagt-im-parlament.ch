@@ -12,7 +12,16 @@ class ParlSpider(BaseSpider):
     allowed_domains = ["www.parlament.ch"]
     base_url = "http://www.parlament.ch" 
     start_urls = [
-        "http://www.parlament.ch/ab/toc/d/n/4820/d_n_4820.htm"
+        # NR 2011
+        "http://www.parlament.ch/ab/toc/d/n/4820/d_n_4820.htm", # Autumn 11
+        "http://www.parlament.ch/ab/toc/d/n/4819/d_n_4819.htm", # Summer 11
+        "http://www.parlament.ch/ab/toc/d/n/4818/d_n_4818.htm", # April (special) 11
+        "http://www.parlament.ch/ab/toc/d/n/4817/d_n_4817.htm", # Spring 11
+        # SR 2011
+        "http://www.parlament.ch/ab/toc/d/s/4820/d_s_4820.htm", # Autum 11
+        "http://www.parlament.ch/ab/toc/d/s/4819/d_s_4819.htm", # Summer 11
+        "http://www.parlament.ch/ab/toc/d/s/4817/d_s_4817.htm", # Spring 11
+
     ]
 
     def parse(self, response):
@@ -32,6 +41,7 @@ class ParlSpider(BaseSpider):
         #subjects = hxs.select("//a[@id='SubjectTitleLink']/*/span/text()").extract()
         matchSpeakerInfo = re.compile("^([^(]*) \(([^,]*), (.*)\)$")
         subjects = []
+        speakers = []
         currentSubject = False
         for tr in hxs.select("//tr"):
             id = tr.select('@id').extract()
@@ -47,13 +57,13 @@ class ParlSpider(BaseSpider):
                     speakerDesc = tr.select(".//a[@id='SpeachTitleLink']//span/text()").extract()
                     speakerDesc = speakerDesc[0]
                     if speakerDesc:
+                        try:
+                            name, group, canton = matchSpeakerInfo.match(speakerDesc).groups()
+                            speaker = items.Speaker(subjectId=currentSubject['id'], name=name, group=group, canton=canton, detailPage=tr.select(".//a[@id='SpeachTitleLink']/@href").extract()[0])
+                            speakers.append(speaker)
+                        except AttributeError:
+                            print "No matched speaker for", speakerDesc
 
-                        name, group, canton = matchSpeakerInfo.match(speakerDesc).groups()
-
-                        speaker = items.Speaker(name=name, group=group, canton=canton, detailPage=tr.select(".//a[@id='SpeachTitleLink']/@href").extract()[0])
-                        # @TODO Cannot access speakers like this, find different solution
-                        #currentSubject.speakers.append(speaker)
-                        print "Speaker", speaker
         if currentSubject:
             subjects.append(currentSubject)
-        print subjects
+        return speakers
