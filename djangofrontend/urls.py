@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('apps.front.views',
+    url(r'^person/$', 'persons', name='persons'),
     url(r'^person/(?P<id>\d+)/tagcloud/$', 'tagcloud', name='tagcloud'),
 )
 

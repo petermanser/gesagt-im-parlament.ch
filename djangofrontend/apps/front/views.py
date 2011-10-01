@@ -5,10 +5,18 @@ from apps.front import models
 from apps.front.stopwords import stopwords
 
 
+def persons(request):
+    persons = models.Person.objects.all()
+    context = {
+        'persons': persons,
+    }
+    return render_to_response('persons.html', context)
+
+
 def tagcloud(request, id):
     # Minimum of times a word must appear to be in the final list
     min_word_count = 3
-    max_words = 50
+    max_words = 30
 
     person = models.Person.objects.get(pk=id)    
     affairs = person.affair_set.all()
@@ -50,4 +58,3 @@ def tagcloud(request, id):
         'person': person,
     }
     return render_to_response('tagcloud.html', context)
-    #return HttpResponse(json.dumps(final))

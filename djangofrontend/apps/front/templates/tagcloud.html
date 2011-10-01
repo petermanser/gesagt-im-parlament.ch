@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <section id="personinfo">
+        <div class="row">
+            <div class="span2"><img src="/static/portraits/{{ person.id }}.jpg" alt="Portrait" /></div>
+            <div class="span14">
+                <h1>{{ person.name }}</h1>
+                <p>{{ affair_count }} Parlamentarische Beiträge</p>
+                <p><a href="http://www.parlament.ch/e/suche/pages/biografie.aspx?biografie_id={{ person.id }}">Biografie</a></p>
+            </div>
+        </div>
+    </section>
+
+
   <div id="container" />
   
   <script>
@@ -11,10 +23,6 @@
       });
 
       // create / load item map
-      var tagClouds = {
-          "HeinzKunz": {"Homer":3, "Maggie":5, "Bart": 3, "Flenders":2, "Lisa": 6},
-          "KarlHinz": {"Hinz":3, "Kunz":5, "Flux": 3, "Poff":2, "Bäh": 6}
-      };
       var words = {{ words|safe }};
 
       // add cloud of heinzkunz as default content

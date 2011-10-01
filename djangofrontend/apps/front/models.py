@@ -1,10 +1,20 @@
+import os
 from django.db import models
+from django.conf import settings
 
 
 class Person(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     url = models.URLField(null=True, blank=True)
+
+    def photo(self):
+        # TODO fix
+        path = os.path.join(settings.STATIC_ROOT, 'apps/front/portraits', '%s.jpg' % self.id)
+        print path
+        if os.path.exists(path):
+            return settings.STATIC_URL + 'portraits/%s.jpg' % self.id
+        return None
 
     def __unicode__(self):
         return self.name

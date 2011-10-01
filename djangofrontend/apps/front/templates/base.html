@@ -1,36 +1,50 @@
 <!doctype html>
 <html lang="en">
 <head>
-  
   <meta charset="utf-8" />
-  <title>Tag Cloud</title>
+  <title>Parlament Buzzwords</title>
   
   <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
   <link rel="stylesheet" href="/static/css/bootstrap.css" />
   <link rel="stylesheet" href="/static/css/style.css" />
   <script src="/static/js/jquery-1.6.4.js"></script>
   <script src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="/static/js/jquery.isotope-1.4.1.js"></script>
   <script src="/static/js/tag-cloud.js"></script>
-	<!--script type="text/javascript" src="js/jquery.easing.js"></script>
-	<script type="text/javascript" src="js/jquery.dimensions.js"></script>
-	<script type="text/javascript" src="js/jquery.accordion.js"></scrip--t
-  
-  <!-- scripts at bottom of page -->
-
 </head>
 <body>
-    {% include 'navigation.html' %}
-    <section id="header">
-    <h1>Parlament Tagcloud Browser</h1>
-    <div id="personinfo">
-        <div id="portrait"><img src="/static/portraits/{{ person.id }}.jpg" alt="Portrait" /></div>
-        <div id="name"><h2>{{ person.name }}</h2><p>{{ affair_count }} Parlamentarische Beiträge</p></div>
+
+
+    <div class="topbar-wrapper">
+        <div class="topbar">
+            <div class="topbar-inner">
+                <div class="container">
+                    <h3><a href="/person">Parlamentarier Buzzwords</a></h3>
+                    <ul class="nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                    <form class="pull-right" action="">
+                        <input type="text" placeholder="Suche" class="span6">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    </section>
-    <section id="content">
-        {% block content %}Welcome{% endblock %}
-    </section>
+
+    <div id="wrapper" class="container">
+
+        <section id="header">
+        </section>
+
+        <section id="content">
+            {% block content %}Welcome{% endblock %}
+        </section>
+
+        <section id="footer">
+        <a href="http://makeopendata.ch/">Make open data!</a>
+        </section>
+    </div>
+
 </body>
 </html>
