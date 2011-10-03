@@ -26,10 +26,27 @@ Der Ablauf ist folgendermassen:
 Requirements
 ------------
 
-  * Für das Scraping: Scala
-  * Für das Frontend: Python, Django
+  * For the scraping: Scala
+  * For the frontend: Python, Django, python-requests
 
-Lizenz
-------
+Setup
+-----
+
+To setup the Django frontend, it is recommended that you use a python-virtualenv.
+
+  1. Activate your virtualenv
+  2. Install dependencies: `pip install -r requirements.txt`
+  3. Run Django server: `./manage.py runserver`
+
+To reparse the data, issue the following commands:
+
+  1. `rm db.sqlite`
+  2. `./manage.py syncdb`
+  3. `./manage.py parse_affairs`
+  4. `./manage.py parse_persons`
+
+
+License
+-------
 
 This code is - unless noted otherwise - distributed under a BSD like license.

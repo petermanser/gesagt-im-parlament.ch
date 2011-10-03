@@ -6,7 +6,6 @@ from apps.front import models
 JSON_FILE = '/home/danilo/Projects/Parlament/data/affairs.json'
 
 class Command(NoArgsCommand):
-    args = '<json file>'
     help = 'Parse json file with affairs data and write it into database'
 
     def printO(self, message):
@@ -50,7 +49,6 @@ class Command(NoArgsCommand):
                     person = models.Person()
                     person.id = int(obj['submitterId'])
                     person.name = obj['submitter']
-                    person.url = obj['submitterLink']
                     person.save()
                     self.printO('Created person %s.' % person.name)
                 except Exception as e:
