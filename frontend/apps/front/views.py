@@ -6,7 +6,7 @@ from apps.front.stopwords import stopwords
 
 
 def persons(request):
-    persons = models.Person.objects.all()#.order_by('party')
+    persons = models.Person.objects.all().order_by('faction_name')
     context = {
         'persons': persons,
     }

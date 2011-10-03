@@ -5,15 +5,24 @@
 
 {% block content %}
     <h1>Parlamentarier</h1>
-    <div class="media-grid">
-        {% for person in persons %}
-            <div class="person thumbnail span4">
-                <a href="{% url 'tagcloud' person.id %}">
-                    {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="160" width="160" />{% endif %}
-                    {% if not person.picture_url %}<img src="http://placehold.it/160x160" alt="" height="160" width="160" />{% endif %}
-                </a><br>
-                <a href="{% url 'tagcloud' person.id %}">{{ person.name }}</a>
-            </div>
-        {% endfor %}
+    {% for person in persons %}
+
+        {% ifchanged person.faction_name %}
+            {% if forloop.counter > 1 %}
+                </div>
+            {% endif %}
+            <h2>{{ person.faction_name }}</h2>
+            <div class="media-grid">
+        {% endifchanged %}
+
+        <div class="person thumbnail span4">
+            <a href="{% url 'tagcloud' person.id %}">
+                {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="160" width="160" />{% endif %}
+                {% if not person.picture_url %}<img src="http://placehold.it/160x160" alt="" height="160" width="160" />{% endif %}
+            </a><br>
+            <a href="{% url 'tagcloud' person.id %}">{{ person.name }}</a>
+        </div>
+
+    {% endfor %}
     </div>
 {% endblock %}
