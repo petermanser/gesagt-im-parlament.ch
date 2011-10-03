@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% load url from future %}
 
+{% block bodyclass %}persons{% endblock %}
+
 {% block content %}
     <h1>Parlamentarier</h1>
-    <div class="row">
+    <div class="media-grid">
         {% for person in persons %}
-            <div class="person span3">
-                <a href="{% url 'tagcloud' person.id %}"><img src="/static/portraits/{{ person.id }}.jpg" alt="" /></a><br>
+            <div class="person thumbnail span4">
+                <a href="{% url 'tagcloud' person.id %}">
+                    {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="160" width="160" />{% endif %}
+                    {% if not person.picture_url %}<img src="http://placehold.it/160x160" alt="" height="160" width="160" />{% endif %}
+                </a><br>
                 <a href="{% url 'tagcloud' person.id %}">{{ person.name }}</a>
             </div>
         {% endfor %}

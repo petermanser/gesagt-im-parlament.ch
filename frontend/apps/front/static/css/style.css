@@ -85,6 +85,12 @@ h1 {
     line-height: 1em;
 }
 
-.row div.person {
-    height: 180px;
+body.persons .media-grid .thumbnail img {
+    max-height: 160px;
+    max-width: 160px;
+}
+
+body.tagcloud .thumbnail img {
+    max-height: 200px;
+    max-width: 200px;
 }
