@@ -1,4 +1,5 @@
 import json
+from itertools import chain
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from apps.front import models
@@ -6,9 +7,10 @@ from apps.front.stopwords import stopwords
 
 
 def persons(request):
-    persons = models.Person.objects.all().order_by('faction_name')
+    persons_faction = models.Person.objects.all().order_by('faction_name').filter(faction_name__isnull=False)
+    persons_nofaction = models.Person.objects.all().order_by('faction_name').filter(faction_name__isnull=True)
     context = {
-        'persons': persons,
+        'persons': list(chain(persons_faction, persons_nofaction)),
     }
     return render_to_response('persons.html', context)
 

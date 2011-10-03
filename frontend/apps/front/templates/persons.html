@@ -11,14 +11,15 @@
             {% if forloop.counter > 1 %}
                 </div>
             {% endif %}
-            <h2>{{ person.faction_name }}</h2>
+            {% if person.faction_name %}<h2>{{ person.faction_name }}</h2>{% endif %}
+            {% if not person.faction_name %}<h2>Unbekannte Fraktion</h2>{% endif %}
             <div class="media-grid">
         {% endifchanged %}
 
-        <div class="person thumbnail span4">
+        <div class="person thumbnail span3">
             <a href="{% url 'tagcloud' person.id %}">
-                {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="160" width="160" />{% endif %}
-                {% if not person.picture_url %}<img src="http://placehold.it/160x160" alt="" height="160" width="160" />{% endif %}
+                {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="120" width="120" />{% endif %}
+                {% if not person.picture_url %}<img src="http://placehold.it/120x120" alt="" height="120" width="120" />{% endif %}
             </a><br>
             <a href="{% url 'tagcloud' person.id %}">{{ person.name }}</a>
         </div>

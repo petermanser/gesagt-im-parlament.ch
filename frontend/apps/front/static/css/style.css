@@ -85,6 +85,10 @@ h1 {
     line-height: 1em;
 }
 
+body.persons .media-grid .thumbnail {
+    height: 220px;
+}
+
 body.persons .media-grid .thumbnail img {
     max-height: 160px;
     max-width: 160px;
