@@ -1,29 +1,38 @@
 {% extends 'base.html' %}
-{% load url from future %}
 
 {% block bodyclass %}persons{% endblock %}
 
 {% block content %}
-    <h1>Parlamentarier</h1>
-    {% for person in persons %}
-
-        {% ifchanged person.faction_name %}
-            {% if forloop.counter > 1 %}
-                </div>
-            {% endif %}
-            {% if person.faction_name %}<h2>{{ person.faction_name }}</h2>{% endif %}
-            {% if not person.faction_name %}<h2>Unbekannte Fraktion</h2>{% endif %}
-            <div class="media-grid">
-        {% endifchanged %}
-
-        <div class="person thumbnail span3">
-            <a href="{% url 'tagcloud' person.id %}">
-                {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="120" width="120" />{% endif %}
-                {% if not person.picture_url %}<img src="http://placehold.it/120x120" alt="" height="120" width="120" />{% endif %}
-            </a><br>
-            <a href="{% url 'tagcloud' person.id %}">{{ person.name }}</a>
+    <h1>Parlamentarier Buzzwords</h1>
+    
+    <h2>Fraktionen</h2>
+    <div class="row">
+        <div class="span6">
+            <ul>
+                {% for faction in factions %}
+                <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> <span class="label">{{ faction.person_count }}</span></li>
+                {% endfor %}
+                <li><a href="#unknown">Unbekannte Fraktion</a> <span class="label">{{ nofaction_persons.count }}</span></li>
+            </ul>
         </div>
-
-    {% endfor %}
     </div>
+
+    <h2>Personen</h2>
+
+    {% for faction in factions %}
+        <h3 id="{{ faction.short_name }}">{{ faction.full_name }} ({{ faction.person_count }})</h3>
+        <div class="media-grid">
+            {% for person in faction.persons.all %}
+                {% include 'person_block.html' %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <h3 id="unknown">Unbekannte Fraktion ({{ nofaction_persons.count }})</h3>
+    <div class="media-grid">
+        {% for person in nofaction_persons %}
+            {% include 'person_block.html' %}
+        {% endfor %}
+    </div>
+
 {% endblock %}

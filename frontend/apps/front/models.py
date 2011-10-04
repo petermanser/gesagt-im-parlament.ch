@@ -4,6 +4,22 @@ from django.db import models
 from django.conf import settings
 
 
+class Faction(models.Model):
+    short_name = models.CharField(max_length=10, blank=True, null=True, primary_key=True)
+    full_name = models.CharField(max_length=63, blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.short_name
+
+
+class Party(models.Model):
+    short_name = models.CharField(max_length=10, blank=True, null=True, primary_key=True)
+    long_name = models.CharField(max_length=63, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.short_name
+
+
 class Person(models.Model):
     COUNCIL_TYPES = (
         ('N', 'Nationalrat'),
@@ -15,10 +31,8 @@ class Person(models.Model):
     number = models.IntegerField(blank=True, null=True)
     council = models.CharField(max_length=1, choices=COUNCIL_TYPES, blank=True, null=True)
     canton = models.CharField(max_length=2, blank=True, null=True)
-    party = models.CharField(max_length=10, blank=True, null=True)
-    party_name = models.CharField(max_length=63, blank=True, null=True)
-    faction = models.CharField(max_length=10, blank=True, null=True)
-    faction_name = models.CharField(max_length=63, blank=True, null=True)
+    party = models.ForeignKey(Party, related_name=u'persons', null=True)
+    faction = models.ForeignKey(Faction, related_name=u'persons', null=True)
     function = models.CharField(max_length=63, blank=True, null=True)
     biography_url = models.CharField(max_length=255, blank=True, null=True)
     picture_url = models.CharField(max_length=255, blank=True, null=True)
@@ -53,3 +67,6 @@ class PersonAffair(models.Model):
     person = models.ForeignKey(Person)
     affair = models.ForeignKey(Affair)
     type = models.IntegerField(choices=AFFAIR_PERSON_TYPES)
+
+    def __unicode__(self):
+        return 'Person %s Affair %s' % (self.person.name, self.affair.id)

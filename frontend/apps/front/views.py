@@ -1,16 +1,17 @@
 import json
-from itertools import chain
 from django.http import HttpResponse
+from django.db.models import Count
 from django.shortcuts import render_to_response
 from apps.front import models
 from apps.front.stopwords import stopwords
 
 
 def persons(request):
-    persons_faction = models.Person.objects.all().order_by('faction_name').filter(faction_name__isnull=False)
-    persons_nofaction = models.Person.objects.all().order_by('faction_name').filter(faction_name__isnull=True)
+    factions = models.Faction.objects.annotate(person_count=Count('persons')).order_by('-person_count')
+    nofaction_persons = models.Person.objects.all().filter(faction__isnull=True)
     context = {
-        'persons': list(chain(persons_faction, persons_nofaction)),
+        'factions': factions,
+        'nofaction_persons': nofaction_persons,
     }
     return render_to_response('persons.html', context)
 

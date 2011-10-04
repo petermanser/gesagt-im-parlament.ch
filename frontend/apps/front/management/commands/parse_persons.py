@@ -32,10 +32,17 @@ class Command(NoArgsCommand):
             person.number = c['number']
             person.council = c['council']
             person.canton = c['canton']
-            person.party = c['party']
-            person.party_name = c['partyName']
-            person.faction = c['faction']
-            person.faction_name = c['factionName']
+            # Note: Cut off party short names after a hyphen (e.g. FDP-Liberale -> FDP)
+            party, created = models.Party.objects.get_or_create(pk=c['party'].split('-', 1)[0])
+            if created:
+                party.full_name = c['partyName']
+                party.save()
+            person.party = party
+            faction, created = models.Faction.objects.get_or_create(pk=c['faction'])
+            if created:
+                faction.full_name = c['factionName']
+                faction.save()
+            person.faction = faction
             person.function = c['function']
             person.biography_url = c['biographyUrl']
             person.picture_url = c['pictureUrl']
