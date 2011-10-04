@@ -69,4 +69,4 @@ class PersonAffair(models.Model):
     type = models.IntegerField(choices=AFFAIR_PERSON_TYPES)
 
     def __unicode__(self):
-        return 'Person %s Affair %s' % (self.person.name, self.affair.id)
+        return '%s: %s' % (self.person.name, self.affair.id)
