@@ -2,17 +2,23 @@ import json
 from django.http import HttpResponse
 from django.db.models import Count
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from apps.front import models
 from apps.front.stopwords import stopwords
+
+
+def home(request):
+    context = RequestContext(request, {})
+    return render_to_response('home.html', context)
 
 
 def persons(request):
     factions = models.Faction.objects.annotate(person_count=Count('persons')).order_by('-person_count')
     nofaction_persons = models.Person.objects.all().filter(faction__isnull=True)
-    context = {
+    context = RequestContext(request, {
         'factions': factions,
         'nofaction_persons': nofaction_persons,
-    }
+    })
     return render_to_response('persons.html', context)
 
 
@@ -55,9 +61,9 @@ def tagcloud(request, id):
             break
 
     # Get photo
-    context = {
+    context = RequestContext(request, {
         'affair_count': affairs.count(),
         'words': json.dumps(final),
         'person': person,
-    }
+    })
     return render_to_response('tagcloud.html', context)
