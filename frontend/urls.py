@@ -5,18 +5,17 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Django admin
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-)
-
-urlpatterns += patterns('apps.front.views',
-    url(r'^person/$', 'persons', name='persons'),
-    url(r'^person/(?P<id>\d+)/tagcloud/$', 'tagcloud', name='tagcloud'),
+urlpatterns = patterns('apps.front.views',
+    url(r'^$', 'home', name='home'),
+    url(r'^persons/$', 'persons', name='persons'),
+    url(r'^person/(?P<id>\d+)(-.*)?/$', 'tagcloud', name='tagcloud'),
 )
 
 if settings.DEBUG:                                                              
+    urlpatterns += patterns('',
+        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+        url(r'^admin/', include(admin.site.urls)),
+    )
     urlpatterns += patterns('django.views.static',                              
         url(r'static/(?P<path>.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
         url(r'media/(?P<path>.*)$', 'serve', {'document_root': settings.MEDIA_ROOT}),

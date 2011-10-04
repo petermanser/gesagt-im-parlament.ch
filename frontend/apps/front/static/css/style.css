@@ -87,6 +87,14 @@ h1 {
     line-height: 1em;
 }
 
+h1 .label {
+    font-size: 1em;
+}
+
+h2 {
+    line-height: 1em;
+}
+
 body.persons .media-grid .thumbnail {
     height: 220px;
 }

@@ -10,10 +10,10 @@
                 {% if not person.picture_url %}<img src="http://placehold.it/200x200" alt="" /></p>{% endif %}
             </div>
             <div class="span12">
-                <h1>{{ person.name|capfirst }}{% if person.party %}, {{ person.party }}{% endif %}</h1>
+                <h1>{{ person.name|capfirst }}{% if person.party %}, <span class="label {{ person.party|slugify }}">{{ person.party }}</span>{% endif %}</h1>
                 <ul>
-                    {% if person.party_name %}<li><strong>Partei:</strong> {{ person.party_name }}</li>{% endif %}
-                    {% if person.faction_name %}<li><strong>Fraktion:</strong> {{ person.faction_name }}</li>{% endif %}
+                    {% if person.party %}<li><strong>Partei:</strong> {{ person.party.full_name }}</li>{% endif %}
+                    {% if person.faction %}<li><strong>Fraktion:</strong> {{ person.faction.full_name }}</li>{% endif %}
                     {% if person.council or person.function %}<li><strong>Funktion:</strong> {{ person.function }} im {{ person.get_council_display }}</li>{% endif %}
                     <li><strong>Biografie:</strong> <a href="http://www.parlament.ch/e/suche/pages/biografie.aspx?biografie_id={{ person.id }}">http://www.parlament.ch/e/suche/pages/biografie.aspx?biografie_id={{ person.id }}</a></li>
                     <li><strong>Berücksichtigte Parlamentarische Beiträge:</strong> {{ affair_count }} </li>

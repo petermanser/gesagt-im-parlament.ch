@@ -65,7 +65,10 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+if DEBUG:
+    STATIC_URL = '/static/'
+else:
+    STATIC_URL = '/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -116,20 +119,23 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     # Contrib apps
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
 
     # Contrib apps
-    'django_extensions',
 
     # Own apps
     'apps.front',
 )
+if DEBUG:
+    INSTALLED_APPS += (
+        'django.contrib.sites',
+        'django.contrib.contenttypes',
+        'django.contrib.admin',
+        'django.contrib.admindocs',
+        'django_extensions',
+    )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

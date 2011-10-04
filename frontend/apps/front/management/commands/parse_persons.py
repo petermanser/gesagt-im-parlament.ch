@@ -3,7 +3,7 @@ import json
 from django.core.management.base import NoArgsCommand
 from apps.front import models
 
-BASE_URL = 'http://ws.parlament.ch/'
+BASE_URL = 'http://ws.parlament.ch'
 
 class Command(NoArgsCommand):
     help = 'Parse json file with affairs data and write it into database'

@@ -14,7 +14,7 @@ class Faction(models.Model):
 
 class Party(models.Model):
     short_name = models.CharField(max_length=10, blank=True, null=True, primary_key=True)
-    long_name = models.CharField(max_length=63, blank=True, null=True)
+    full_name = models.CharField(max_length=63, blank=True, null=True)
 
     def __unicode__(self):
         return self.short_name
