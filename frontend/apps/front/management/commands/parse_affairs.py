@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from HTMLParser import HTMLParser
 from django.core.management.base import NoArgsCommand
 from apps.front import models
 
@@ -34,7 +35,7 @@ class Command(NoArgsCommand):
                 affair.congress = obj['congress']
                 affair.state = obj['state']
                 affair.submission_date = datetime.strptime(obj['submissionDate'], '%d.%m.%Y')
-                affair.content = obj['content']
+                affair.content = HTMLParser().unescape(obj['content'])
                 affair.save()
                 self.printO('Parsed [%s] %s' % (affair.id, affair.title))
             except Exception as e:

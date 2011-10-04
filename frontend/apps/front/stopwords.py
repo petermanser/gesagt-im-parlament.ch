@@ -1020,4 +1020,11 @@ stopwords = set([
     u'bern',
     u'vorstösse',
     u'ii',
+    u'kantone',
+    u'kantonen',
+    u'fragen',
+    u'rahmen',
+    u'jahr',
+    u'worden',
+    u'bereit',
 ])
