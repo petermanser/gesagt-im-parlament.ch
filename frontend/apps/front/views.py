@@ -67,3 +67,6 @@ def tagcloud(request, id):
         'person': person,
     })
     return render_to_response('tagcloud.html', context)
+
+def contact(request):
+    pass

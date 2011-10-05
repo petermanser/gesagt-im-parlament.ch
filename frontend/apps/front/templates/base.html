@@ -1,3 +1,4 @@
+{% load url from future %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,9 +20,10 @@
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container">
+                    <h3><a href="{% url 'home' %}">gesagt-im-parlament.ch</a></h3>
                     <ul class="nav">
-                        <li><a href="/home">Home</a></li>
-                        <li><a href="/persons/">Personen</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'persons' %}">Personen</a></li>
                     </ul>
                     <form class="pull-right" action="">
                         <input type="text" placeholder="Suche" class="span6">
@@ -38,10 +40,6 @@
 
         <section id="content">
             {% block content %}Welcome{% endblock %}
-        </section>
-
-        <section id="footer">
-        <a href="http://makeopendata.ch/">Make open data!</a>
         </section>
     </div>
 

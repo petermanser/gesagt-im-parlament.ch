@@ -9,6 +9,7 @@ urlpatterns = patterns('apps.front.views',
     url(r'^$', 'home', name='home'),
     url(r'^persons/$', 'persons', name='persons'),
     url(r'^person/(?P<id>\d+)(-.*)?/$', 'tagcloud', name='tagcloud'),
+    url(r'^contact/$', 'contact', name='contact'),
 )
 
 if settings.DEBUG:                                                              
