@@ -1,15 +1,17 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
+from django.views.generic import TemplateView
+from apps.front.views import Persons, Person
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('apps.front.views',
-    url(r'^$', 'home', name='home'),
-    url(r'^persons/$', 'persons', name='persons'),
-    url(r'^person/(?P<id>\d+)(-.*)?/$', 'tagcloud', name='tagcloud'),
-    url(r'^contact/$', 'contact', name='contact'),
+    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
+    url(r'^persons/$', Persons.as_view(), name='persons'),
+    url(r'^person/(?P<pk>\d+)(-.*)?/$', Person.as_view(), name='tagcloud'),
+    url(r'^contact/$', TemplateView.as_view(template_name='contact.html'), name='contact'),
 )
 
 if settings.DEBUG:                                                              
