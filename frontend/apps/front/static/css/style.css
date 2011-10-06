@@ -116,13 +116,21 @@ div.media-grid.persons .thumbnail img {
     max-width: 160px;
 }
 
+.row.alert-message.block-message {
+    margin-left: 0;
+}
+
 
 
 /* Seiten-spezifisches Styling */
 
-body.tagcloud .thumbnail img {
+body.person .thumbnail img {
     max-height: 200px;
     max-width: 200px;
+}
+
+body.person .attributes li {
+    line-height: 20px;
 }
 
 

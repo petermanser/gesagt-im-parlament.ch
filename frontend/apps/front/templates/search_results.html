@@ -4,7 +4,13 @@
 
 {% block content %}
 
-    <h1>{{ persons.count }} Suchresultate</h1>
+    {% if persons.count >= 0 %}
+        <h1>{{ persons.count }} Suchresultat{{ persons.count|pluralize:"e" }} für "{{ q }}"</h1>
+    {% endif %}
+
+    {% if persons = None %}
+        <h1>Ungültiger Suchbegriff</h1>
+    {% endif %}
 
     {% if not persons %}
         <div>Sorry, leider keine Suchresultate gefunden.</div>

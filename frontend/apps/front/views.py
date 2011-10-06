@@ -85,3 +85,8 @@ class Search(ListView):
                 Q(name__icontains=q) | Q(party__short_name__istartswith=q)
             )
         return None
+
+    def get_context_data(self, **kwargs):
+        context = super(Search, self).get_context_data(**kwargs)
+        context['q'] = self.request.GET.get('q', None)
+        return context

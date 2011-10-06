@@ -5,24 +5,26 @@
 {% block content %}
     <h1>Parlamentarier</h1>
 
-    <p>Hier findest du alle Parlamentarier, geordnet nach Fraktion.  Klicke einfach auf das
-    gewünschte Bild, um die Detailinformationen anzuzeigen.</p>
+    <div>
+        <p>Hier findest du die Parlamentarier, geordnet nach Fraktion.  Klicke einfach auf das
+        gewünschte Bild, um die Detailinformationen anzuzeigen.</p>
+    </div>
     
     <h2>Fraktionen</h2>
-    <div class="row">
-        <div class="span6">
+    <div class="row alert-message block-message info">
+        <div class="span7">
             <ul class="unstyled">
-                {% for faction in factions|slice:"::2" %}
-                <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> <span class="label">{{ faction.person_count }}</span></li>
+                {% for faction in factions|slice:":4" %}
+                <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> ({{ faction.person_count }} Pers.)</li>
                 {% endfor %}
             </ul>
         </div>
-        <div class="span6">
+        <div class="span7">
             <ul class="unstyled">
-                {% for faction in factions|slice:"1::2" %}
-                <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> <span class="label">{{ faction.person_count }}</span></li>
+                {% for faction in factions|slice:"4:" %}
+                <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> ({{ faction.person_count }} Pers.)</li>
                 {% endfor %}
-                <li><a href="#unknown">Unbekannte Fraktion</a> <span class="label">{{ nofaction_persons.count }}</span></li>
+                <li><a href="#unknown">Unbekannte Fraktion</a> ({{ nofaction_persons.count }} Pers.)</li>
             </ul>
         </div>
     </div>

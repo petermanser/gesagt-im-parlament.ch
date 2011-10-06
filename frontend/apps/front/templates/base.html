@@ -26,7 +26,7 @@
                         <li><a href="{% url 'contact' %}">Kontakt</a></li>
                     </ul>
                     <form class="pull-right" action="{% url 'search' %}">
-                        <input type="text" name="q" placeholder="Suche nach Name oder Partei" class="span6">
+                        <input type="text" name="q" placeholder="Suche nach Name oder Partei" class="span6" value="{{ q }}">
                     </form>
                 </div>
             </div>

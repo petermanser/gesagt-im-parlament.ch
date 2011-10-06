@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-{% block bodyclass %}tagcloud{% endblock %}
+{% block bodyclass %}person{% endblock %}
 
 {% block content %}
     <section id="personinfo">
         <div class="row">
             <div class="span4 thumbnail">
-                {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" />{% endif %}
+                {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="200" width="200" />{% endif %}
                 {% if not person.picture_url %}<img src="http://placehold.it/200x200" alt="" /></p>{% endif %}
             </div>
-            <div class="span12">
+            <div class="span12 attributes">
                 <h1>{{ person.name|capfirst }}{% if person.party %}, <span class="label {{ person.party|slugify }}">{{ person.party }}</span>{% endif %}</h1>
-                <ul>
+                <ul class="unstyled">
                     {% if person.party %}<li><strong>Partei:</strong> {{ person.party.full_name }}</li>{% endif %}
                     {% if person.faction %}<li><strong>Fraktion:</strong> {{ person.faction.full_name }}</li>{% endif %}
                     {% if person.council or person.function %}<li><strong>Funktion:</strong> {{ person.function }} im {{ person.get_council_display }}</li>{% endif %}
