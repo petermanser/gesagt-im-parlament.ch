@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 from django.views.generic import TemplateView
-from apps.front.views import Persons, Person
+from apps.front.views import Persons, Person, Search
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -12,6 +12,7 @@ urlpatterns = patterns('apps.front.views',
     url(r'^persons/$', Persons.as_view(), name='persons'),
     url(r'^person/(?P<pk>\d+)(-.*)?/$', Person.as_view(), name='tagcloud'),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html'), name='contact'),
+    url(r'^search/$', Search.as_view(), name='search'),
 )
 
 if settings.DEBUG:                                                              

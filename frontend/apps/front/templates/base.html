@@ -25,8 +25,8 @@
                         <li><a href="{% url 'persons' %}">Parlamentarier</a></li>
                         <li><a href="{% url 'contact' %}">Kontakt</a></li>
                     </ul>
-                    <form class="pull-right" action="{% url 'home' %}">
-                        <input type="text" placeholder="Suche" class="span6">
+                    <form class="pull-right" action="{% url 'search' %}">
+                        <input type="text" name="q" placeholder="Suche nach Name oder Partei" class="span6">
                     </form>
                 </div>
             </div>

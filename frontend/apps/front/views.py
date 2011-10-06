@@ -1,7 +1,7 @@
 import json
 import re
 from django.http import HttpResponse
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic import TemplateView, ListView, DetailView
@@ -71,3 +71,17 @@ class Person(DetailView):
         context['words'] = json.dumps(final)
 
         return context
+
+
+class Search(ListView):
+    context_object_name = 'persons'
+    model = models.Person
+    template_name = 'search_results.html'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q', None)
+        if q:
+            return self.model.objects.filter(
+                Q(name__icontains=q) | Q(party__short_name__istartswith=q)
+            )
+        return None

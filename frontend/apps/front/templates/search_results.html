@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block bodyclass %}search{% endblock %}
+
+{% block content %}
+
+    <h1>{{ persons.count }} Suchresultate</h1>
+
+    {% if not persons %}
+        <div>Sorry, leider keine Suchresultate gefunden.</div>
+    {% endif %}
+
+    {% if persons %}
+        <div class="media-grid persons">
+            {% for person in persons %}
+                {% include 'person_block.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}
