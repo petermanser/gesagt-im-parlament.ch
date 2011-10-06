@@ -1037,4 +1037,7 @@ stopwords = set([
     u'zeit'
     u'situation',
     u'u',
+    u'bereich',
+    u'teil',
+    u'ag',
 ])

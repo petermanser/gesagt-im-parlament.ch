@@ -3,13 +3,23 @@
 {% block bodyclass %}persons{% endblock %}
 
 {% block content %}
-    <h1>Parlamentarier Buzzwords</h1>
+    <h1>Parlamentarier</h1>
+
+    <p>Hier findest du alle Parlamentarier, geordnet nach Fraktion.  Klicke einfach auf das
+    gewünschte Bild, um die Detailinformationen anzuzeigen.</p>
     
     <h2>Fraktionen</h2>
     <div class="row">
         <div class="span6">
-            <ul>
-                {% for faction in factions %}
+            <ul class="unstyled">
+                {% for faction in factions|slice:"::2" %}
+                <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> <span class="label">{{ faction.person_count }}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="span6">
+            <ul class="unstyled">
+                {% for faction in factions|slice:"1::2" %}
                 <li><a href="#{{ faction.short_name }}">{{ faction.full_name }}</a> <span class="label">{{ faction.person_count }}</span></li>
                 {% endfor %}
                 <li><a href="#unknown">Unbekannte Fraktion</a> <span class="label">{{ nofaction_persons.count }}</span></li>

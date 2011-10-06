@@ -57,24 +57,27 @@
 
 
 
-html, body, #wrapper {
-    min-height: 100%;
+html, body {
+    height: 100%;
+    background: url('/static/img/paper.png');
 }
 
 body {
     margin-top: 40px;
-    background: url('/static/img/paper.png');
+    font-family: georgia, serif;
 }
 
 #wrapper {
+    height: auto !important;
+    min-height: 100%;
     padding: 20px;
-    border-width: 0px 1px 0px;
+    border-width: 0px 1px 1px;
     border-color: black;
     border-style: solid;
     background-color: white;
-    -moz-box-shadow: -5px 0 20px #888, 5px 0 20px #888;
-    -webkit-box-shadow: -5px 0 20px #888, 5px 0 20px #888;
-    box-shadow: -5px 0 20px #888, 5px 0 20px #888;
+    -moz-box-shadow: -5px 0px 20px #888, 5px 0px 20px #888;
+    -webkit-box-shadow: -5px 0px 20px #888, 5px 0px 20px #888;
+    box-shadow: -5px 0px 20px #888, 5px 0px 20px #888;
 }
 
 #content {
@@ -96,7 +99,16 @@ h1 .label {
 
 h2 {
     line-height: 1em;
+    padding-bottom: 10px;
 }
+
+p {
+    font-size: 1.3em;
+    line-height: 1.4em;
+}
+
+
+/* Seiten-spezifisches Styling */
 
 body.persons .media-grid .thumbnail {
     height: 220px;

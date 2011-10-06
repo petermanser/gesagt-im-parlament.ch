@@ -20,12 +20,12 @@
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container">
-                    <h3><a href="{% url 'home' %}">gesagt-im-parlament.ch</a></h3>
+                    <h3><a href="{% url 'home' %}">Home</a></h3>
                     <ul class="nav">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'persons' %}">Personen</a></li>
+                        <li><a href="{% url 'persons' %}">Parlamentarier</a></li>
+                        <li><a href="{% url 'contact' %}">Kontakt</a></li>
                     </ul>
-                    <form class="pull-right" action="">
+                    <form class="pull-right" action="{% url 'home' %}">
                         <input type="text" placeholder="Suche" class="span6">
                     </form>
                 </div>
