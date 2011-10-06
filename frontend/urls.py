@@ -10,7 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('apps.front.views',
     url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^persons/$', Persons.as_view(), name='persons'),
-    url(r'^person/(?P<pk>\d+)(-.*)?/$', Person.as_view(), name='tagcloud'),
+    url(r'^person/(?P<pk>\d+)-(?P<slug>.*)/$', Person.as_view(), name='person'),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html'), name='contact'),
     url(r'^search/$', Search.as_view(), name='search'),
 )
