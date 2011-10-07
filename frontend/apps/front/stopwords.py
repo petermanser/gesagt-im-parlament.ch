@@ -997,6 +997,14 @@ stopwords = set([
     u'übrig',
     u'übrigens',
 
+    # single letters
+    u'a', u'b', u'c', u'd', u'e', u'f', u'g', u'h', u'i', u'j', u'k', u'l', u'm',
+    u'n', u'o', u'p', u'q', u'r', u's', u't', u'u', u'v', u'w', u'x', u'y', u'z',
+
+    # months
+    u'januar', u'februar', u'märz', u'april', u'mai', u'juni',
+    u'juli', u'august', u'september', u'oktober', u'november', u'dezember', 
+
     # own values
     u'bund',
     u'bundes',
@@ -1004,6 +1012,8 @@ stopwords = set([
     u'bundesrates',
     u'schweiz',
     u'schweizer',
+    u'schweizerisch',
+    u'schweizerischen',
     u'franken',
     u'insbesondere',
     u'prozent',
@@ -1014,14 +1024,13 @@ stopwords = set([
     u'parlamentarischen',
     u'personen',
     u'artikel',
-    u'a',
-    u'b',
-    u'z',
     u'bern',
     u'vorstösse',
     u'ii',
     u'kantone',
     u'kantonen',
+    u'kantonal',
+    u'kantonalen',
     u'fragen',
     u'rahmen',
     u'jahr',
@@ -1036,8 +1045,12 @@ stopwords = set([
     u'entsprechenden',
     u'zeit'
     u'situation',
-    u'u',
     u'bereich',
     u'teil',
     u'ag',
+    u'sinne',
+    u'stand',
+    u'fragen1',
+    u'of',
+    u'teilt',
 ])
