@@ -6,7 +6,7 @@
         {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="120" width="120" />{% endif %}
         {% if not person.picture_url %}<img src="{{ STATIC_URL }}img/avatar_placeholder.png" alt="" height="120" width="120" />{% endif %}
     </a><br>
-    <a href="">{{ person.name|capfirst }}
+    <a href="{% url 'person' pk=person.id slug=person.name|slugify %}">{{ person.name|capfirst }}
         {% if person.party %}<span class="label {{ person.party.short_name|slugify }}">{{ person.party.short_name }}</span>{% endif %}
     </a>
 </div>
