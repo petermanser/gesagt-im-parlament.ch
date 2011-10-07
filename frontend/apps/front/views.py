@@ -1,5 +1,7 @@
 import json
 import re
+from itertools import chain
+from collections import defaultdict
 from django.http import HttpResponse
 from django.db.models import Count, Q
 from django.shortcuts import render_to_response
@@ -38,27 +40,44 @@ class Person(DetailView):
         # Get all content words
         contents = [a.content.split(' ') for a in affairs]
         # Flatten "list in list"
-        words = sum(contents, [])  
-        # Strip all non-letters and convert to lowercase
-            #pattern = re.compile('[\W]+')
-            #words_clean = map(lambda x: pattern.sub('', x).lower(), words)
-        words_semiclean = map(lambda x: filter(lambda y: y.isalnum() or y.isdigit(), x).lower(), words)
-        words_clean = filter(lambda w: not w.isdigit(), words_semiclean)
-        # Remove all empty words
-        words_filtered = filter(None, words_clean)
-        # Remove stopwords
-        words_relevant = filter(lambda x: x not in stopwords, words_filtered)
+        wordlist_contents = sum(contents, [])  
 
-        # Create map with words as key and count as value
-        word_counts = {}
-        for word in words_relevant:
-            if word in word_counts:
-                word_counts[word] += 1
-            else:
-                word_counts[word] = 1
+        # Get all title words
+        titles = [a.title.split(' ') for a in affairs]
+        # Flatten "list in list"
+        wordlist_titles = sum(titles, [])  
+
+        def process_wordlist(wordlist, weight=1):
+            # Strip all non-letters and convert to lowercase
+                #pattern = re.compile('[\W]+')
+                #words_clean = map(lambda x: pattern.sub('', x).lower(), words)
+            words_semiclean = map(lambda x: filter(lambda y: y.isalnum() or y.isdigit(), x).lower(), wordlist)
+            words_clean = filter(lambda w: not w.isdigit(), words_semiclean)
+            # Remove all empty words
+            words_filtered = filter(None, words_clean)
+            # Remove stopwords
+            words_relevant = filter(lambda x: x not in stopwords, words_filtered)
+
+            # Create map with words as key and count as value
+            word_counts = {}
+            for word in words_relevant:
+                if word in word_counts:
+                    word_counts[word] += weight
+                else:
+                    word_counts[word] = weight
+            return word_counts
+
+        # Process both sets with different weights
+        processed_contents = process_wordlist(wordlist_contents, 1)
+        processed_titles = process_wordlist(wordlist_titles, 3)
+        
+        # Combine both dictionaries, adding values
+        words = defaultdict(int)
+        for k, v in chain(processed_contents.iteritems(), processed_titles.iteritems()):
+            words[k] += v
 
         # Sort words
-        words_sorted = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
+        words_sorted = sorted(words.items(), key=lambda x: x[1], reverse=True)
 
         # Put words that appear enough times in final map
         final = {}
