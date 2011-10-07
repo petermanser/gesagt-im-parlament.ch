@@ -40,8 +40,10 @@ class Person(DetailView):
         # Flatten "list in list"
         words = sum(contents, [])  
         # Strip all non-letters and convert to lowercase
-        pattern = re.compile('[\W]+')
-        words_clean = map(lambda x: filter(lambda y: y.isalnum() and not y.isdigit(), x).lower(), words)
+            #pattern = re.compile('[\W]+')
+            #words_clean = map(lambda x: pattern.sub('', x).lower(), words)
+        words_semiclean = map(lambda x: filter(lambda y: y.isalnum() or y.isdigit(), x).lower(), words)
+        words_clean = filter(lambda w: not w.isdigit(), words_semiclean)
         # Remove all empty words
         words_filtered = filter(None, words_clean)
         # Remove stopwords
@@ -79,14 +81,15 @@ class Search(ListView):
     template_name = 'search_results.html'
 
     def get_queryset(self):
-        q = self.request.GET.get('q', None)
-        if q:
+        # TODO: sanitize
+        self.q = self.request.GET.get('q', None)
+        if self.q:
             return self.model.objects.filter(
-                Q(name__icontains=q) | Q(party__short_name__istartswith=q)
+                Q(name__icontains=self.q) | Q(party__short_name__istartswith=self.q)
             )
         return None
 
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
-        context['q'] = self.request.GET.get('q', None)
+        context['q'] = self.q
         return context
