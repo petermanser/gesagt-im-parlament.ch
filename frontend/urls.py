@@ -21,9 +21,5 @@ if settings.DEBUG:
         url(r'^admin/', include(admin.site.urls)),
     )
     urlpatterns += patterns('django.views.static',                              
-        url(r'(?P<path>img/.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
-        url(r'(?P<path>css/.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
-        url(r'(?P<path>js/.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
-        #url(r'static/(?P<path>.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
-        #url(r'media/(?P<path>.*)$', 'serve', {'document_root': settings.MEDIA_ROOT}),
+        url(r'static/(?P<path>.*)$', 'serve', {'document_root': settings.STATIC_ROOT}),
     )                                                                           
