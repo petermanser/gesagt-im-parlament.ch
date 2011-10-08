@@ -3,8 +3,8 @@
 {% spaceless %}
 <div class="person thumbnail span3">
     <a href="{% url 'person' pk=person.id slug=person.name|slugify %}">
-        {% if person.picture_url %}<img src="{{ person.picture_url }}" alt="" height="120" width="120" />{% endif %}
-        {% if not person.picture_url %}<img src="{{ STATIC_URL }}img/avatar_placeholder.png" alt="" height="120" width="120" />{% endif %}
+        {% if person.photo_small %}<img src="{{ person.photo_small }}" alt="" height="120" width="120" />{% endif %}
+        {% if not person.photo_small %}<img src="{{ STATIC_URL }}img/avatar_placeholder.png" alt="" height="120" width="120" />{% endif %}
     </a><br>
     <a href="{% url 'person' pk=person.id slug=person.name|slugify %}">{{ person.name|capfirst }}
         {% if person.party %}<span class="label {{ person.party.short_name|slugify }}">{{ person.party.short_name }}</span>{% endif %}

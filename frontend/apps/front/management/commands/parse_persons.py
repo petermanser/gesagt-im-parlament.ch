@@ -45,7 +45,6 @@ class Command(NoArgsCommand):
             person.faction = faction
             person.function = c['function']
             person.biography_url = c['biographyUrl']
-            person.picture_url = c['pictureUrl']
             try:
                 person.save()
             except Exception as e:

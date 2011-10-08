@@ -5,9 +5,10 @@ from django.core.management.base import NoArgsCommand
 from django.conf import settings
 from apps.front import models
 
-BASE_URL = 'http://www.parlament.ch/SiteCollectionImages/profil/original/'
+#BASE_URL = 'http://www.parlament.ch/SiteCollectionImages/profil/original/'
+BASE_URL = 'http://www.parlament.ch/SiteCollectionImages/profil/225x225/'
 SIZES = [
-    (200, 200),
+    #(225, 225),
     (120, 120),
 ]
 
@@ -47,7 +48,7 @@ class Command(NoArgsCommand):
             
             # Write image at different sizes
             image = parser.close()
-            image.save(os.path.join(filepath, '%s.jpg' % number))
+            image.save(os.path.join(filepath, '%s-%sx%s.jpg' % (number, 225, 225)))
             for size in SIZES:
                 image.thumbnail(size, Image.ANTIALIAS)
                 image.save(os.path.join(filepath, '%s-%sx%s.jpg' % (number, size[0], size[1])))

@@ -35,7 +35,18 @@ class Person(models.Model):
     faction = models.ForeignKey(Faction, related_name=u'persons', null=True)
     function = models.CharField(max_length=63, blank=True, null=True)
     biography_url = models.CharField(max_length=255, blank=True, null=True)
-    picture_url = models.CharField(max_length=255, blank=True, null=True)
+    
+    def photo(self, size):
+        relpath = os.path.join('img', 'portraits', '%s-%ux%u.jpg' % (self.number, size, size))
+        if os.path.exists(os.path.join(settings.STATIC_ROOT, relpath)):
+            return os.path.join(settings.STATIC_URL + relpath)
+        return None
+
+    def photo_large(self):
+        return self.photo(225)
+
+    def photo_small(self):
+        return self.photo(120)
 
     def __unicode__(self):
         return self.name
