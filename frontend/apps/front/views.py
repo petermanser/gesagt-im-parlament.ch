@@ -9,7 +9,9 @@ from django.template import RequestContext
 from django.views.generic import TemplateView, ListView, DetailView
 from apps.front import models
 from apps.front.stopwords import stopwords
-
+from apps.front.sentiments import positive
+from apps.front.sentiments import negative
+from apps.front.sentiments import neutral
 
 class Persons(ListView):
     queryset = models.Faction.objects.annotate(person_count=Count('persons')).order_by('-person_count')
@@ -38,19 +40,37 @@ class Person(DetailView):
         affairs = object.affair_set.all()
 
         # Get all content words
-        contents = [a.content.split(' ') for a in affairs]
+        #contents = [a.content.split(' ') for a in affairs]
+        sentence_list_of_lists = [a.content.split('.') for a in affairs]
+
         # Flatten "list in list"
-        wordlist_contents = sum(contents, [])  
+        #wordlist_contents = sum(contents, [])
+        sentences = sum(sentence_list_of_lists, [])
+
+        #sentence_sentiments = map (lambda sentence: sentence:sentence_sentiment(sentence) , sentence_contents)
+
+        def sentence_sentiment(sentence):
+            sentiment = 0
+            split_sentence = sentence.split(' ')
+            for word in split_sentence:
+                lowercase_word = word.lower()
+                if (lowercase_word in positive):
+                    sentiment += 1
+                if (lowercase_word in negative):
+                    sentiment -= 1
+            return sentiment
 
         # Get all title words
-        titles = [a.title.split(' ') for a in affairs]
+        title_list_of_lists = [a.title.split(' ') for a in affairs]
         # Flatten "list in list"
-        wordlist_titles = sum(titles, [])  
+        title_sentences = sum(title_list_of_lists, [])  
 
-        def process_wordlist(wordlist, weight=1):
+        def process_sentence(sentence, weight=1):
             # Strip all non-letters and convert to lowercase
                 #pattern = re.compile('[\W]+')
                 #words_clean = map(lambda x: pattern.sub('', x).lower(), words)
+            sentiment = sentence_sentiment(sentence)
+            wordlist = sentence.split(' ')
             words_semiclean = map(lambda x: filter(lambda y: y.isalnum() or y.isdigit(), x).lower(), wordlist)
             words_clean = filter(lambda w: not w.isdigit(), words_semiclean)
             # Remove all empty words
@@ -60,36 +80,59 @@ class Person(DetailView):
 
             # Create map with words as key and count as value
             word_counts = {}
+            word_sentiments = {}
             for word in words_relevant:
                 if word in word_counts:
                     word_counts[word] += weight
                 else:
                     word_counts[word] = weight
-            return word_counts
+                word_sentiments[word] = sentiment
+            return (word_counts, word_sentiments)
 
-        # Process both sets with different weights
-        processed_contents = process_wordlist(wordlist_contents, 1)
-        processed_titles = process_wordlist(wordlist_titles, 3)
-        
+        # Process both sets with different weights		
+        #processed_contents = process_wordlist(wordlist_contents, 1)
+        #processed_titles = process_wordlist(wordlist_titles, 3)
+        aggregated_word_counts = {}
+        aggregated_word_sentiments = {}
+        def aggregate_sentence_statistics(word_counts, word_sentiments, sentence, weight=1):
+            (counts, sentiments) = process_sentence(sentence)
+            for word in counts:
+                if word in word_counts:
+                    old_count = word_counts[word]
+                    word_counts[word] = old_count + weight*counts[word]
+                else:
+                    word_counts[word] = weight*counts[word]
+                if word in word_sentiments:
+                    old_sentiment = word_sentiments[word]
+                    word_sentiments[word] = old_sentiment + sentiments[word]
+                else:
+                    word_sentiments[word] = sentiments[word]
+
+        for sentence in sentences:
+            aggregate_sentence_statistics(aggregated_word_counts, aggregated_word_sentiments, sentence)
+        for title_sentence in title_sentences:
+            aggregate_sentence_statistics(aggregated_word_counts, aggregated_word_sentiments, title_sentence, 3)
+
         # Combine both dictionaries, adding values
-        words = defaultdict(int)
-        for k, v in chain(processed_contents.iteritems(), processed_titles.iteritems()):
-            words[k] += v
+        #words = defaultdict(int)
+        #for k, v in chain(processed_contents.iteritems(), processed_titles.iteritems()):
+        #    words[k] += v
 
         # Sort words
-        words_sorted = sorted(words.items(), key=lambda x: x[1], reverse=True)
+        words_sorted = sorted(aggregated_word_counts.items(), key=lambda x: x[1], reverse=True)
 
         # Put words that appear enough times in final map
         final = {}
         for word, count in words_sorted[:max_words]:
             if count >= min_word_count:
-                final[word] = count
+                final[word] = (count, aggregated_word_sentiments[word])
             else:
                 break
 
         # Update context
         context['affair_count'] = affairs.count()
         context['words'] = json.dumps(final)
+        #print context['words']
 
         return context
 
