@@ -124,7 +124,9 @@ div.media-grid.persons .thumbnail img {
 
 /* Seiten-spezifisches Styling */
 
-body.home h2 {
+body.home h2,
+body.persons h2,
+body.contact h2 {
     margin-top: 30px;
 }
 
@@ -135,6 +137,10 @@ body.person .thumbnail img {
 
 body.person .attributes li {
     line-height: 20px;
+}
+
+body.contact ul li {
+    color: inherit;
 }
 
 
