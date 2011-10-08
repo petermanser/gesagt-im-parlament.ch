@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load url from future %}
 
 {% block bodyclass %}home{% endblock %}
 
 {% block content %}
-    <h1>Was tut ein Parlamentarier?</h1>
+    <h1>{% trans 'Was tut ein Parlamentarier?' %}</h1>
 
     <p>Was leisten Parlamentarier so im National- und Ständerat? Dies ist eine Frage, die die
     meisten Bürger wohl nicht beantworten können. Dieses Projekt versucht, die Schwerpunkte
