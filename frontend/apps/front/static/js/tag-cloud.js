@@ -5,7 +5,7 @@ function addTagMap($isotope_container, tag_map) {
         fct = 0;
         
     for (var tag in tag_map) { // find range of values
-        var value = tag_map[tag][0];
+        var value = tag_map[tag];
         if (value < min) min = value;
         if (value > max) max = value;
     }
@@ -13,22 +13,12 @@ function addTagMap($isotope_container, tag_map) {
     fct = 6 / diff; // we want values between 1 and 6
     
     for (var tag in tag_map) {
-        addTag($isotope_container, tag, tag_map[tag][0] * fct, tag_map[tag][1]);
+        addTag($isotope_container, tag, tag_map[tag] * fct);
     }
 }
 
-function addTag($isotope_container, tag, weight, sentiment) {
-	  var $color = 'black'
-	  
-     if ( sentiment < -(6 + weight/3) ) {
-        $color = 'red';
-      }
-	
-     if ( sentiment > (6 + weight/3) ) {
-        $color = 'green';
-      }
-	
-      var $text_element = $('<h2 style="font-size: '+ weight +'em; color: '+ $color +'">' + tag + '</h2>')
+function addTag($isotope_container, tag, weight) {
+      var $text_element = $('<h2 style="font-size: '+ weight +'em;">' + tag + '</h2>')
       //console.log($text_element.css('width'))
 
       var $newItem = $('<div id="$'+ tag +'" class="element" ></div>');
