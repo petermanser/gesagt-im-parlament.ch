@@ -1,14 +1,12 @@
 import json
 from datetime import datetime
 from HTMLParser import HTMLParser
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand, CommandError
 from apps.front import models
 
-JSON_FILE = '../data/affairs.json'
-
-class Command(NoArgsCommand):
-    print open(JSON_FILE, 'r')
+class Command(BaseCommand):
     help = 'Parse json file with affairs data and write it into database'
+    args = '<affairs json file>'
 
     def printO(self, message):
         """Print to stdout"""
@@ -18,8 +16,10 @@ class Command(NoArgsCommand):
         """Print to stderr"""
         self.stderr.write(message + '\n')
 
-    def handle_noargs(self, **options):
-        json_file = open(JSON_FILE, 'r') 
+    def handle(self, *args, **options):
+        if not len(args) == 1:
+            raise CommandError('Exactly 1 argument required.')
+        json_file = open(args[0], 'r') 
         for row in json_file:
             # Set initial flag
             failed = False
