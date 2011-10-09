@@ -4,9 +4,10 @@ from HTMLParser import HTMLParser
 from django.core.management.base import NoArgsCommand
 from apps.front import models
 
-JSON_FILE = '/home/danilo/Projects/Parlament/data/affairs.json'
+JSON_FILE = '../data/affairs.json'
 
 class Command(NoArgsCommand):
+    print open(JSON_FILE, 'r')
     help = 'Parse json file with affairs data and write it into database'
 
     def printO(self, message):
