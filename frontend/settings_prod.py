@@ -5,3 +5,10 @@ from settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = False
+
+INSTALLED_APPS = (
+    # Contrib apps
+    'django.contrib.staticfiles',
+    # Own apps
+    'apps.front',
+)
