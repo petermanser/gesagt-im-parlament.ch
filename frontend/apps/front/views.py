@@ -100,7 +100,7 @@ class Search(ListView):
     template_name = 'search_results.html'
 
     def get_queryset(self):
-        self.q = filter(lambda c: c.isalnum(), self.request.GET.get('q', u''))
+        self.q = filter(lambda c: c.isalnum() or c.isspace(), self.request.GET.get('q', u''))
         if self.q:
             return self.model.objects.filter(
                 Q(name__icontains=self.q) | Q(party__short_name__istartswith=self.q)
