@@ -89,8 +89,8 @@ body {
 }
 
 h1 {
-    font-size: 4em;
-    line-height: 1.3em;
+    font-size: 50px;
+    line-height: 50px;
 }
 
 h1 .label {
@@ -103,7 +103,7 @@ h2 {
 }
 
 p {
-    font-size: 1.3em;
+    font-size: 17px;
     line-height: 1.4em;
 }
 
