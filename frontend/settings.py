@@ -2,6 +2,7 @@
 # Django settings for djangofrontend project.
 
 import os
+import django.conf.global_settings as DEFAULT_SETTINGS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -131,6 +132,10 @@ INSTALLED_APPS = (
 
     # Own apps
     'apps.front',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    'context_processors.debug_mode',
 )
 
 # A sample logging configuration. The only tangible logging
